@@ -26,9 +26,10 @@ public:
 	// INIT all modules
 	bool Init() {
 		bool ret = true; 
-		for (int i = 0; i < NUM_MODULES; ++i)
-		{
-			if (modules[i]->Init() == false) ret = false; 
+		for (int i = 0; i < NUM_MODULES; ++i)	{
+			ret = modules[i]->Init();
+			if (ret == false)
+				i = NUM_MODULES;	
 		}
 		
 		// TODO 5: Make sure that if Init() / PreUpdate/Update/PostUpdate/CleanUP return
@@ -42,24 +43,33 @@ public:
 	// TODO 4: Add PreUpdate and PostUpdate calls
 
 	update_status PreUpdate() {
-		for (int i = 0; i < NUM_MODULES; ++i)
-			modules[i]->PreUpdate();
+		update_status status = UPDATE_CONTINUE;
+		for (int i = 0; i < NUM_MODULES; ++i) {
+			status = modules[i]->PreUpdate();
+			if (status == UPDATE_STOP) i = NUM_MODULES;
+		}
 
-		return update_status::UPDATE_CONTINUE;
+		return status;
 	}
 	// TODO 2: Make sure all modules receive its update
 	update_status Update() {
-		for (int i = 0; i < NUM_MODULES; ++i)
-			modules[i]->Update();
+		update_status status = UPDATE_CONTINUE;
+		for (int i = 0; i < NUM_MODULES; ++i) {
+			status = modules[i]->Update();
+			if (status == UPDATE_STOP)i = NUM_MODULES;
+		}
 
-		return update_status::UPDATE_CONTINUE;
+		return status;
 	}
 
 	update_status PostUpdate() {
-		for (int i = 0; i < NUM_MODULES; ++i)
-			modules[i]->PostUpdate();
+		update_status status = UPDATE_CONTINUE;
 
-		return update_status::UPDATE_CONTINUE;
+		for (int i = 0; i < NUM_MODULES; ++i) {
+			status = modules[i]->PostUpdate();
+			if (status == UPDATE_STOP)i = NUM_MODULES;
+		}
+		return status;
 	}
 
 
@@ -67,10 +77,13 @@ public:
 	// EXIT Update 
 	// TODO 3: Make sure all modules have a chance to cleanup
 	bool CleanUp()	{
-		for (int i = NUM_MODULES; i > 0; --i)
-			modules[i]->CleanUp();
+		bool ret = true; 
+		for (int i = NUM_MODULES; i > 0; --i) {
+			ret = modules[i]->CleanUp();
+			if (ret == false) i = NUM_MODULES;
+		}
 
-		return true;
+		return ret;
 	}
 
 };
