@@ -41,35 +41,23 @@ public:
 	// UPDATE all modules
 
 	// TODO 4: Add PreUpdate and PostUpdate calls
-
-	update_status PreUpdate() {
-		update_status status = UPDATE_CONTINUE;
-		for (int i = 0; i < NUM_MODULES; ++i) {
-			status = modules[i]->PreUpdate();
-			if (status == UPDATE_STOP) i = NUM_MODULES;
-		}
-
-		return status;
-	}
 	// TODO 2: Make sure all modules receive its update
 	update_status Update() {
-		update_status status = UPDATE_CONTINUE;
-		for (int i = 0; i < NUM_MODULES; ++i) {
-			status = modules[i]->Update();
-			if (status == UPDATE_STOP)i = NUM_MODULES;
+		update_status state = UPDATE_CONTINUE;
+
+		for (int i = 0; i < NUM_MODULES && state == UPDATE_CONTINUE; ++i) {
+			state = modules[i]->PreUpdate();
 		}
 
-		return status;
-	}
 
-	update_status PostUpdate() {
-		update_status status = UPDATE_CONTINUE;
+		for (int i = 0; i < NUM_MODULES && state == UPDATE_CONTINUE; ++i)
+			state = modules[i]->Update();
 
-		for (int i = 0; i < NUM_MODULES; ++i) {
-			status = modules[i]->PostUpdate();
-			if (status == UPDATE_STOP)i = NUM_MODULES;
-		}
-		return status;
+
+		for (int i = 0; i < NUM_MODULES && state == UPDATE_CONTINUE; ++i)
+			state = modules[i]->PostUpdate();
+
+		return state; 
 	}
 
 
