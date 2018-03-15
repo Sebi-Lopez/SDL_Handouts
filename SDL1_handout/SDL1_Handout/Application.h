@@ -23,10 +23,15 @@ public:
 		// http://www.cprogramming.com/fod/kbhit.html
 	}
 
+	~Application()
+	{
+		delete[] modules;
+	}
+
 	// INIT all modules
 	bool Init() {
 		bool ret = true; 
-		for (int i = 0; i < NUM_MODULES; ++i)	{
+		for (int i = 0; i < NUM_MODULES; ++i){
 			ret = modules[i]->Init();
 			if (ret == false)
 				i = NUM_MODULES;	
@@ -45,9 +50,9 @@ public:
 	update_status Update() {
 		update_status state = UPDATE_CONTINUE;
 
-		for (int i = 0; i < NUM_MODULES && state == UPDATE_CONTINUE; ++i) {
+		for (int i = 0; i < NUM_MODULES && state == UPDATE_CONTINUE; ++i) 
 			state = modules[i]->PreUpdate();
-		}
+		
 
 
 		for (int i = 0; i < NUM_MODULES && state == UPDATE_CONTINUE; ++i)
@@ -64,11 +69,12 @@ public:
 
 	// EXIT Update 
 	// TODO 3: Make sure all modules have a chance to cleanup
-	bool CleanUp()	{
+	bool CleanUp()	
+	{
 		bool ret = true; 
-		for (int i = NUM_MODULES; i > 0; --i) {
+		for (int i = NUM_MODULES; i > 0; --i) 		{
 			ret = modules[i]->CleanUp();
-			if (ret == false) i = NUM_MODULES;
+			if (ret == false) i = 0;
 		}
 
 		return ret;
