@@ -4,8 +4,8 @@
 #include "Globals.h"
 #include "Module.h"
 #include "Dummy.h"
-
-#define NUM_MODULES 1
+#include "DummyESC.h"
+#define NUM_MODULES 2
 
 class Application
 {
@@ -18,23 +18,21 @@ public:
 	Application()
 	{
 		modules[0] = new ModuleDummy();
+		modules[1] = new ModuleDummyESC();
 		// TODO 7: Create your new module "DummyESC"
 		// it should check if player it ESC key use kbhit()
 		// http://www.cprogramming.com/fod/kbhit.html
 	}
 
-	~Application()
-	{
+	~Application() {
 		delete[] modules;
 	}
 
 	// INIT all modules
 	bool Init() {
 		bool ret = true; 
-		for (int i = 0; i < NUM_MODULES; ++i){
+		for (int i = 0; i < NUM_MODULES && ret== true; ++i){
 			ret = modules[i]->Init();
-			if (ret == false)
-				i = NUM_MODULES;	
 		}
 		
 		// TODO 5: Make sure that if Init() / PreUpdate/Update/PostUpdate/CleanUP return
@@ -54,7 +52,6 @@ public:
 			state = modules[i]->PreUpdate();
 		
 
-
 		for (int i = 0; i < NUM_MODULES && state == UPDATE_CONTINUE; ++i)
 			state = modules[i]->Update();
 
@@ -72,9 +69,8 @@ public:
 	bool CleanUp()	
 	{
 		bool ret = true; 
-		for (int i = NUM_MODULES; i > 0; --i) 		{
+		for (int i = NUM_MODULES-1; i > 0 && ret==true; --i) 		{
 			ret = modules[i]->CleanUp();
-			if (ret == false) i = 0;
 		}
 
 		return ret;

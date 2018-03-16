@@ -13,6 +13,7 @@ enum main_states
 
 int main()
 {
+
 	ReportMemoryLeaks();
 
 	int main_return = EXIT_FAILURE;
@@ -64,9 +65,10 @@ int main()
 			{
 				LOG("\nApplication Finishing --------------");
 				if (App->CleanUp() == true)
-				{
+				{					
 					main_return = EXIT_SUCCESS; 
 					state = MAIN_EXIT;
+					App->~Application();
 				}
 				else
 				{
@@ -77,9 +79,7 @@ int main()
 			break; 
 		}
 	}
-
 	LOG("\nBye :)\n");
 	// TODO 6: Remove ALL memory leaks
-	delete App;
 	return main_return;
 }
