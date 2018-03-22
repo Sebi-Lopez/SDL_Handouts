@@ -57,7 +57,7 @@ update_status ModuleRender::PreUpdate()
 	SDL_RenderClear(App->render->renderer);
 
 	// TODO 10: Blit our test texture to check functionality
-	camera->x += 5;
+	camera->x += 1;
 	Blit(background, 0, 0, camera);
 	SDL_Rect target;
 	target.x = 0;
