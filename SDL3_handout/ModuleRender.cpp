@@ -43,10 +43,6 @@ bool ModuleRender::Init()
 	camera->x = 0;
 	camera->y = 0;
 
-	/*camera.x = 0;
-	camera.y = 0;
-	camera.w = 0;
-	camera.h = 0;*/
 
 
 	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, 0);
@@ -61,9 +57,7 @@ update_status ModuleRender::PreUpdate()
 	SDL_RenderClear(App->render->renderer);
 
 	// TODO 10: Blit our test texture to check functionality
-
 	camera->x += 10;
-	//camera.x += 20;
 	Blit(background, 0, 0, camera);
 
 	return state;
