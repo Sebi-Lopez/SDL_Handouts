@@ -33,7 +33,7 @@ bool ModuleRender::Init()
 	}
 
 	// TODO 9: load a texture "test.png" to test is everything works well
-	player = App->textures->Load("assets/backgroundlvl1.png");
+	player = App->textures->Load("assets/player_1.png");
 	background = App->textures->Load("assets/backgroundlvl1.png");
 
 	camera = new SDL_Rect;
@@ -57,8 +57,15 @@ update_status ModuleRender::PreUpdate()
 	SDL_RenderClear(App->render->renderer);
 
 	// TODO 10: Blit our test texture to check functionality
-	camera->x += 10;
+	camera->x += 5;
 	Blit(background, 0, 0, camera);
+	SDL_Rect target;
+	target.x = 0;
+	target.y = 0;
+	target.h = 20;
+	target.w = 30;
+
+	Blit(player, 50, 110, &target);
 
 	return state;
 }
@@ -79,6 +86,7 @@ bool ModuleRender::CleanUp()
 	//Destroy window
 	if(renderer != nullptr)
 		SDL_DestroyRenderer(renderer);
+	delete camera;
 
 	return true;
 }
