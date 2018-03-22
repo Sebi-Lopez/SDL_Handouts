@@ -33,7 +33,14 @@ bool ModuleRender::Init()
 	}
 
 	// TODO 9: load a texture "test.png" to test is everything works well
-	tex = App->textures->Load("assets/backgroundlvl1.png");
+	player = App->textures->Load("assets/backgroundlvl1.png");
+	background = App->textures->Load("assets/backgroundlvl1.png");
+
+	App->render->camera->x=0;
+
+
+	camera->x = 0; 
+	camera->y = 0;
 
 
 	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, 0);
@@ -48,7 +55,9 @@ update_status ModuleRender::PreUpdate()
 	SDL_RenderClear(App->render->renderer);
 
 	// TODO 10: Blit our test texture to check functionality
-	if (!(Blit(tex, 0, 0, 0))) state = UPDATE_STOP; 
+
+	App->render->camera->x += 20;
+	Blit(background, 0, 0, camera);
 
 	return state;
 }

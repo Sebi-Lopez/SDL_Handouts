@@ -22,7 +22,9 @@ public:
 
 public:
 	SDL_Renderer* renderer = nullptr;
-	SDL_Texture* tex;
+	SDL_Texture* player;
+	SDL_Texture* background;
+	SDL_Rect* camera;
 };
 
 #endif //__ModuleRenderer_H__
