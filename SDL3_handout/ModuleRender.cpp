@@ -36,11 +36,17 @@ bool ModuleRender::Init()
 	player = App->textures->Load("assets/backgroundlvl1.png");
 	background = App->textures->Load("assets/backgroundlvl1.png");
 
-	App->render->camera->x=0;
+	camera = new SDL_Rect;
 
-
-	camera->x = 0; 
+	camera->h = 224;
+	camera->w = 320;
+	camera->x = 0;
 	camera->y = 0;
+
+	/*camera.x = 0;
+	camera.y = 0;
+	camera.w = 0;
+	camera.h = 0;*/
 
 
 	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, 0);
@@ -56,7 +62,8 @@ update_status ModuleRender::PreUpdate()
 
 	// TODO 10: Blit our test texture to check functionality
 
-	App->render->camera->x += 20;
+	camera->x += 10;
+	//camera.x += 20;
 	Blit(background, 0, 0, camera);
 
 	return state;
