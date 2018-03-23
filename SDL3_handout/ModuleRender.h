@@ -2,6 +2,7 @@
 #define __ModuleRenderer_H__
 
 #include "Module.h"
+#include "SDL\include\SDL_rect.h"
 
 struct SDL_Renderer;
 struct SDL_Texture;
@@ -24,7 +25,7 @@ public:
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* player;
 	SDL_Texture* background;
-	SDL_Rect* camera = nullptr;
+	SDL_Rect camera;
 };
 
 #endif //__ModuleRenderer_H__

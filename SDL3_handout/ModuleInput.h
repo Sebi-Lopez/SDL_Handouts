@@ -3,7 +3,6 @@
 
 #include "Module.h"
 #include "Globals.h"
-
 typedef unsigned char Uint8;
 
 class ModuleInput : public Module
