@@ -62,8 +62,8 @@ update_status ModuleRender::PreUpdate()
 	SDL_Rect target;
 	target.x = 0;
 	target.y = 0;
-	target.h = 20;
-	target.w = 30;
+	target.h = 15;
+	target.w = 32;
 
 	Blit(player, 50, 110, &target);
 
