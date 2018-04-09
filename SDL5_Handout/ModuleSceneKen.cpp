@@ -64,9 +64,9 @@ bool ModuleSceneKen::Start()
 // UnLoad assets
 bool ModuleSceneKen::CleanUp()
 {
-	App->player->Disable(); 
 	LOG("Unloading ken scene");
-
+	App->player->Disable(); 
+	App->textures->Unload(graphics); 
 	return true;
 }
 

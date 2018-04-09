@@ -42,6 +42,14 @@ bool ModulePlayer::Start()
 	return ret;
 }
 
+bool ModulePlayer::CleanUp()
+{
+	LOG("Closing Up Player Module");
+	App->textures->Unload(graphics); 
+	return true;
+}
+
+
 // Update: draw background
 update_status ModulePlayer::Update()
 {
@@ -62,3 +70,4 @@ update_status ModulePlayer::Update()
 	
 	return UPDATE_CONTINUE;
 }
+
