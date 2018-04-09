@@ -4,9 +4,6 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
-#include "ModuleSceneKen.h"
-#include "ModuleInput.h"
-#include "ModuleFadeToBlack.h"
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
 ModuleSceneHonda::ModuleSceneHonda()
@@ -67,9 +64,6 @@ update_status ModuleSceneHonda::Update()
 	App->render->Blit(graphics, 0, -16, &roof, 0.75f);
 
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
-		App->fade->FadeToBlack(App->scene_honda, App->scene_ken, 1.5f);
-
 
 	return UPDATE_CONTINUE;
 }
