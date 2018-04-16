@@ -17,11 +17,14 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void OnCollision(Collider* c1, Collider*c2);
 
 public:
 
+	bool test = false; 
 	SDL_Texture* graphics = nullptr;
 	Animation* current_animation = nullptr;
+	Collider* player_collider = nullptr; 
 	Animation idle;
 	Animation up;
 	Animation down;

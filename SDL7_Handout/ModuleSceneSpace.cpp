@@ -27,8 +27,8 @@ bool ModuleSceneSpace::Start()
 	App->collision->Enable();
 	
 	// Colliders ---
-	App->collision->AddCollider({0, 224, 3930, 16}, COLLIDER_WALL);
-
+	bg_collider = App->collision->AddCollider({0, 224, 3930, 16}, COLLIDER_WALL);
+	App->collision->AddCollider({ 600,100,60,150 }, COLLIDER_WALL); 
 	// TODO 1: Add colliders for the first columns of the level
 
 	return true;

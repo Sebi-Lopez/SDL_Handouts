@@ -4,6 +4,7 @@
 #include "Module.h"
 
 struct SDL_Texture;
+struct Collider; 
 
 class ModuleSceneSpace : public Module
 {
@@ -19,6 +20,8 @@ public:
 	
 	SDL_Texture* background = nullptr;
 	SDL_Texture* stars = nullptr;
+	Collider* bg_collider = nullptr;
+
 };
 
 #endif // __MODULESCENESPACE_H__

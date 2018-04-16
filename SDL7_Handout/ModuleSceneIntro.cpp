@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleSceneSpace.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -22,7 +23,7 @@ bool ModuleSceneIntro::Start()
 	background = App->textures->Load("rtype/intro.png");
 
 	App->render->camera.x = App->render->camera.y = 0;
-	
+	App->scene_space->Disable(); 
 	return true;
 }
 

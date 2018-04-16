@@ -80,7 +80,6 @@ update_status ModuleCollision::PreUpdate()
 			{
 				if(matrix[c1->type][c2->type] && c1->callback) 
 					c1->callback->OnCollision(c1, c2);
-				
 				if(matrix[c2->type][c1->type] && c2->callback) 
 					c2->callback->OnCollision(c2, c1);
 			}
@@ -176,5 +175,12 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	// TODO 0: Return true if there is an overlap
 	// between argument "r" and property "rect"
-	return false;
+	bool ret = true; 
+
+	if (r.x + r.w < rect.x) ret = false; 
+	else if (r.x > rect.x + rect.w) ret = false; 
+	else if (r.y + r.h < rect.y)ret = false; 
+	else if (r.y > rect.h + rect.y)ret = false; 
+
+	return ret;
 }
