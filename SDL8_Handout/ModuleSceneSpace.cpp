@@ -5,6 +5,7 @@
 #include "ModulePlayer.h"
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
+#include "ModuleEnemies.h"
 #include "ModuleSceneSpace.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -25,12 +26,21 @@ bool ModuleSceneSpace::Start()
 	App->player->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
-	
-	// Colliders ---
-	bg_collider = App->collision->AddCollider({0, 224, 3930, 16}, COLLIDER_WALL);
-	App->collision->AddCollider({ 600,100,60,150 }, COLLIDER_WALL); 
-	// TODO 1: Add colliders for the first columns of the level
+	App->enemies->Enable();
 
+	// Colliders ---
+	App->collision->AddCollider({0, 224, 3930, 16}, COLLIDER_WALL);
+	App->collision->AddCollider({1375, 0, 111, 96}, COLLIDER_WALL);
+	App->collision->AddCollider({1375, 145, 111, 96}, COLLIDER_WALL);
+
+	// Enemies ---
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 600, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 625, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 640, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 665, 80);
+	
+	// TODO 1: Add a new wave of red birds
+	
 	return true;
 }
 
@@ -40,10 +50,12 @@ bool ModuleSceneSpace::CleanUp()
 	LOG("Unloading space scene");
 
  	App->textures->Unload(background);
-	App->player->Disable();
+
+	App->enemies->Disable();
 	App->collision->Disable();
 	App->particles->Disable();
-	
+	App->player->Disable();
+
 	return true;
 }
 
@@ -51,11 +63,7 @@ bool ModuleSceneSpace::CleanUp()
 update_status ModuleSceneSpace::Update()
 {
 	// Move camera forward -----------------------------
-	int scroll_speed = 1;
-
-	App->player->position.x += 1;
-	App->render->camera.x += 1 *SCREEN_SIZE;
-	
+	App->render->camera.x += 1 * SCREEN_SIZE;
 
 	// Draw everything --------------------------------------
 	App->render->Blit(background, 0, 0, NULL);
