@@ -202,6 +202,9 @@ bool ModuleBall::Start()
 update_status ModuleBall::Update()
 {
 	angle_speed = 10; 
+	center_player.x = App->player->position.x + 16;
+	center_player.y = App->player->position.y - 6;
+
 
 	if (angle >= 360) angle = 0; 
 
@@ -298,8 +301,11 @@ update_status ModuleBall::Update()
 		ball_position.x = App->player->position.x - CHARACTER_WIDTH;
 		ball_position.y = App->player->position.y - CHARACTER_HEIGHT - CHARACTER_HEIGHT / 2;
 	}
-	
 
+	/*current_animation = &N;*/ 
+	/*ball_position.x = center_player.x + 25*cos(angle);
+	ball_position.y = center_player.y + 25*sin(angle);
+*/
 	/*switch (App->player->player_direction)
 	{
 	case PLAYER_DIRECTION::GOING_UP:

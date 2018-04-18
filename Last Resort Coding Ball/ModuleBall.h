@@ -77,13 +77,14 @@ public:
 	Animation NNW; 
 
 	Animation* current_animation;
-
+	Animation test; 
 public:
 
 	bool ball_locked = false; 
 	int angle = 0; 
 	int angle_speed = 5;
 	iPoint ball_position;
+	iPoint center_player;
 	BALL_POSITION _ball; 
 	BALL_AIMING ball_aiming; 
 	SDL_Texture* texture; 
