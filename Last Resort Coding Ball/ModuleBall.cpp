@@ -242,10 +242,15 @@ update_status ModuleBall::Update()
 	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_REPEAT) {
 		if (!ball_locked)
 		{													// The angle grows or decreases to get to 180º depending on its place 
-			if (angle > 180)
+			if (angle <= 180 && angle > 0)
 				angle -= angle_speed;
-			else if (angle < 180)
+			else if (angle < 360 && angle!=0) {
 				angle += angle_speed;
+			}
+			else
+			{
+				ball_aiming = BALL_AIMING::BALL_AIMING_E;
+			}
 		}
 		else
 		{
@@ -256,18 +261,43 @@ update_status ModuleBall::Update()
 	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_REPEAT) {
 		if (!ball_locked)
 		{													// The angle grows or decreases to get to 270º depending on its place 
-			if (angle <= 180 && angle < 0)
+			if (angle > 180)
 				angle -= angle_speed;
-			else if (angle < 360) {
+			else if (angle < 180)
 				angle += angle_speed;
-			}
-			else
-			{
-				ball_aiming = BALL_AIMING::BALL_AIMING_E;
-			}
 		}
 	}
 
+	
+	// Ball in North
+	if (angle > 250 && angle < 290)			
+	{
+		current_animation = &N;
+		ball_position.x = App->player->position.x + 10;
+		ball_position.y = App->player->position.y - 45;
+	}
+
+	// Ball in East
+	if (angle > 340 || angle < 20)
+	{
+		current_animation = &E;
+		ball_position.x = App->player->position.x + CHARACTER_WIDTH + 10;
+		ball_position.y = App->player->position.y - CHARACTER_HEIGHT - CHARACTER_HEIGHT / 2;
+	}
+	// Ball in South
+	if (angle > 70 && angle < 110) {
+		current_animation = &S;
+		ball_position.x = App->player->position.x + 10;
+		ball_position.y = App->player->position.y + 10;
+	}
+
+	// Ball in West
+	if (angle > 160 && angle < 200)
+	{
+		current_animation = &W;
+		ball_position.x = App->player->position.x - CHARACTER_WIDTH;
+		ball_position.y = App->player->position.y - CHARACTER_HEIGHT - CHARACTER_HEIGHT / 2;
+	}
 	
 
 	/*switch (App->player->player_direction)
