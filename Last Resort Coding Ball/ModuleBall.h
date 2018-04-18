@@ -81,7 +81,8 @@ public:
 public:
 
 	bool ball_locked = false; 
-
+	int angle = 0; 
+	int angle_speed = 5;
 	iPoint ball_position;
 	BALL_POSITION _ball; 
 	BALL_AIMING ball_aiming; 

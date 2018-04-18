@@ -201,7 +201,76 @@ bool ModuleBall::Start()
 
 update_status ModuleBall::Update()
 {
-	switch (App->player->player_direction)
+	angle_speed = 10; 
+
+	if (angle >= 360) angle = 0; 
+
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_REPEAT) {
+		if (!ball_locked)
+		{													// The angle grows or decreases to get to 90º depending on its place 
+			if (angle <= 270 && angle>90)
+				angle -= angle_speed;
+			else if (angle > 270)
+				angle += angle_speed; 
+			else if (angle >= 0 && angle < 90) 
+				angle += angle_speed; 
+		}
+		else
+		{
+			ball_aiming = BALL_AIMING::BALL_AIMING_S;
+		}
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_REPEAT) {		
+		if (!ball_locked)
+		{													// The angle grows or decreases to get to 270º depending on its place 
+			if (angle >= 90 && angle<270)
+				angle += angle_speed;
+			else if (angle < 90) {
+				angle -= angle_speed;
+				if (angle <= 0) angle = 359; 
+			}
+			else if (angle <360 && angle > 270)
+				angle -= angle_speed;
+		}
+		else
+		{
+			ball_aiming = BALL_AIMING::BALL_AIMING_N;
+		}
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_REPEAT) {
+		if (!ball_locked)
+		{													// The angle grows or decreases to get to 180º depending on its place 
+			if (angle > 180)
+				angle -= angle_speed;
+			else if (angle < 180)
+				angle += angle_speed;
+		}
+		else
+		{
+			ball_aiming = BALL_AIMING::BALL_AIMING_W;
+		}
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_REPEAT) {
+		if (!ball_locked)
+		{													// The angle grows or decreases to get to 270º depending on its place 
+			if (angle <= 180 && angle < 0)
+				angle -= angle_speed;
+			else if (angle < 360) {
+				angle += angle_speed;
+			}
+			else
+			{
+				ball_aiming = BALL_AIMING::BALL_AIMING_E;
+			}
+		}
+	}
+
+	
+
+	/*switch (App->player->player_direction)
 	{
 	case PLAYER_DIRECTION::GOING_UP:
 		current_animation = &S;
@@ -231,7 +300,7 @@ update_status ModuleBall::Update()
 			ball_position.y = App->player->position.y - 45;
 		}
 		break;
-	}
+	}*/
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	App->render->Blit(texture, ball_position.x, ball_position.y, &r); 
