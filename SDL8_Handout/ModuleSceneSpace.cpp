@@ -40,7 +40,12 @@ bool ModuleSceneSpace::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 665, 80);
 	
 	// TODO 1: Add a new wave of red birds
-	
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 750, 120);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 775, 120);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 800, 120);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 825, 120);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::BROWN_COOKIES, 400, 100);
 	return true;
 }
 
