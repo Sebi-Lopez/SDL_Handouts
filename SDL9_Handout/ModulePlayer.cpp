@@ -124,8 +124,8 @@ update_status ModulePlayer::Update()
 
 	// Draw UI (score) --------------------------------------
 	sprintf_s(score_text, 10, "%7d", score);
-
 	// TODO 3: Blit the text of the score in at the bottom of the screen
+	App->fonts->BlitText(150, 150, 0, score_text);
 
 	return UPDATE_CONTINUE;
 }
